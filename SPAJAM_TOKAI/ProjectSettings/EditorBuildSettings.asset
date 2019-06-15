@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UserProfileScene.unity
     guid: 20861af837958af46890929cd5c718f9
+  - enabled: 1
+    path: Assets/Scenes/RegisterUmbrellaScene.unity
+    guid: 262cb8c6430afcb4eac9fbd3e5896ef9
   m_configObjects: {}

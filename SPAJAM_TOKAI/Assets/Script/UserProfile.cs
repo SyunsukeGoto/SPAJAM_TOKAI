@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NCMB;
+using UnityEngine.SceneManagement;
 
 public class UserProfile : MonoBehaviour
 {
@@ -21,5 +22,10 @@ public class UserProfile : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void LoadRegisterUmbrella()
+    {
+        SceneManager.LoadScene("RegisterUmbrellaScene");
     }
 }
