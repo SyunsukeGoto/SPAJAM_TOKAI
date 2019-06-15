@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NCMB;
 
 public class WebCamController : MonoBehaviour
 {
@@ -16,14 +17,29 @@ public class WebCamController : MonoBehaviour
     [SerializeField, Header("カメラマテリアル")]
     private Material material;
 
+    [SerializeField]
+    private GameObject canvas;
+
     private WebCamTexture[] webcamTexture;
 
     string _result = null;
 
     private int currentNum;
 
+    public enum Mode
+    {
+        QR,      // QRコードを読み取る
+        Brrow,   // 借りる
+    }
+
+    private Mode mode;
+
+    private string id;
+
     void Start()
     {
+        mode = Mode.QR;
+
         webcamTexture = new WebCamTexture[WebCamTexture.devices.Length];
         currentNum = 0;
 
@@ -39,10 +55,26 @@ public class WebCamController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (webcamTexture[currentNum] != null)
+        switch(mode)
         {
-            _result = QRCodeHelper.Read(webcamTexture[currentNum]);
-            Debug.LogFormat("result : " + _result);
+            case Mode.QR:
+                if (webcamTexture[currentNum] != null)
+                {
+                    _result = QRCodeHelper.Read(webcamTexture[currentNum]);
+                    Debug.LogFormat("result : " + _result);
+
+                    if (_result != "error")
+                    {
+                        id = _result;
+                        canvas.SetActive(false);
+                        mode = Mode.Brrow;
+                    }
+                }
+                break;
+            case Mode.Brrow:
+
+                break;
         }
+       
     }
 }
