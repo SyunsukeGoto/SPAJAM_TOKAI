@@ -47,7 +47,7 @@ namespace Goto
             {
                 Mapbox.Utils.Vector2d _lotAndLong = Mapbox.Unity.Utilities.Conversions.StringToLatLon(_getNowLotAndLong.Latitude.ToString() + "," + _getNowLotAndLong.Longitude.ToString());
                 //_abstractMap.SetCenterLatitudeLongitude(_lotAndLong);
-                _abstractMap.UpdateMap(_lotAndLong, 16);
+                _abstractMap.UpdateMap(_lotAndLong, 14);
             }
 
             _upDateData = _upDateData < 60 ? 0 : _upDateData;
