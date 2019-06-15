@@ -20,14 +20,20 @@ namespace Goto
     {
         private Mapbox.Unity.Map.AbstractMap _abstractMap;    /// MapLocationOptionsクラス
         private GetNowLotAndLong _getNowLotAndLong;
+        [SerializeField]
+        private GameObject _abstractMapObj;
+        [SerializeField]
+        private GameObject _getNowLotAndLongObj;
+        private int _upDateData;
 
         /// <summary>
         /// 初期化処理
         /// </summary>
         void Start()
         {
-            _abstractMap = new Mapbox.Unity.Map.AbstractMap();
-            _getNowLotAndLong = new GetNowLotAndLong();
+            _upDateData = 0;
+            _abstractMap = _abstractMapObj.GetComponent<Mapbox.Unity.Map.AbstractMap>();
+            _getNowLotAndLong = _getNowLotAndLongObj.GetComponent<GetNowLotAndLong>();
         }
 
         /// <summary>
@@ -35,7 +41,16 @@ namespace Goto
         /// </summary>
         void Update()
         {
-            Mapbox.Utils.Vector2d _lotAndLong = Mapbox.Unity.Utilities.Conversions.StringToLatLon(_getNowLotAndLong.Latitude.ToString() + "," + _getNowLotAndLong.Longitude.ToString());
+            _upDateData++;
+
+            if (_upDateData < 60)
+            {
+                Mapbox.Utils.Vector2d _lotAndLong = Mapbox.Unity.Utilities.Conversions.StringToLatLon(_getNowLotAndLong.Latitude.ToString() + "," + _getNowLotAndLong.Longitude.ToString());
+                //_abstractMap.SetCenterLatitudeLongitude(_lotAndLong);
+                _abstractMap.UpdateMap(_lotAndLong, 16);
+            }
+
+            _upDateData = _upDateData < 60 ? 0 : _upDateData;
         }
     }
 }
