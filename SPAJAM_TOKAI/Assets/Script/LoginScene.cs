@@ -13,10 +13,16 @@ public class LoginScene : MonoBehaviour
     [SerializeField]
     private Text userPass;
 
+    [SerializeField]
+    private GameObject canvas;
+
+    [SerializeField]
+    private Text text;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        canvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,6 +41,8 @@ public class LoginScene : MonoBehaviour
             if (e != null)
             {
                 UnityEngine.Debug.Log("ログインに失敗: " + e.ErrorMessage);
+                canvas.SetActive(true);
+                text.text = e.ErrorMessage;
             }
             else
             {
@@ -42,6 +50,10 @@ public class LoginScene : MonoBehaviour
                 SceneManager.LoadScene("UserProfileScene");
             }
         });
+    }
 
+    public void Error()
+    {
+        canvas.SetActive(false);
     }
 }

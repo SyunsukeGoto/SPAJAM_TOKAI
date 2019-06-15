@@ -50,7 +50,7 @@ public class RegisterUmbrella : MonoBehaviour
         }
         
         //成功時の処理
-        user["BorrowUmbrellaID"] = a.ObjectId;
+        user["LendUmbrellaID"] = a.ObjectId;
         Debug.Log(a.ObjectId);
         user.SaveAsync();
     }

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NCMB;
+using UnityEngine.SceneManagement;
 
 public class WebCamController : MonoBehaviour
 {
@@ -16,14 +18,29 @@ public class WebCamController : MonoBehaviour
     [SerializeField, Header("カメラマテリアル")]
     private Material material;
 
+    [SerializeField]
+    private GameObject[] canvas =  new GameObject[2];
+
     private WebCamTexture[] webcamTexture;
 
     string _result = null;
 
     private int currentNum;
 
+    public enum Mode
+    {
+        QR,      // QRコードを読み取る
+        Brrow,   // 借りる
+    }
+
+    private Mode mode;
+
+    private string id;
+
     void Start()
     {
+        mode = Mode.QR;
+
         webcamTexture = new WebCamTexture[WebCamTexture.devices.Length];
         currentNum = 0;
 
@@ -39,10 +56,59 @@ public class WebCamController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (webcamTexture[currentNum] != null)
+        switch(mode)
         {
-            _result = QRCodeHelper.Read(webcamTexture[currentNum]);
-            Debug.LogFormat("result : " + _result);
+            case Mode.QR:
+                if (webcamTexture[currentNum] != null)
+                {
+                    _result = QRCodeHelper.Read(webcamTexture[currentNum]);
+                    Debug.LogFormat("result : " + _result);
+
+                    if (_result != "error")
+                    {
+                        id = _result;
+                        canvas[0].SetActive(false);
+                        canvas[1].SetActive(true);
+                        mode = Mode.Brrow;
+                    }
+                }
+                break;
+            case Mode.Brrow:
+                break;
         }
+    }
+
+    public void Yes()
+    {
+        NCMBUser.CurrentUser["BorrowUmbrellaID"] = id;
+        NCMBUser.CurrentUser.SaveAsync();
+
+        NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject>("Umbrella");
+
+        query.WhereEqualTo("objectId", id);
+        query.FindAsync((List<NCMBObject> objList, NCMBException e) => {
+            if (e != null)
+            {
+                //検索失敗時の処理
+            }
+            else
+            {
+                //
+                foreach (NCMBObject obj in objList)
+                {
+                    obj["IsBorrow"] = true;
+                    obj["BorrowID"] = NCMBUser.CurrentUser.ObjectId;
+                    obj.SaveAsync();
+                    Debug.Log("成功");
+                }
+            }
+        });
+
+        SceneManager.LoadScene("UserProfileScene");
+    }
+
+    public void No()
+    {
+        mode = Mode.QR;
     }
 }
