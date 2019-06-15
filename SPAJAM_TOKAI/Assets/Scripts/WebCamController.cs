@@ -18,6 +18,8 @@ public class WebCamController : MonoBehaviour
 
     private WebCamTexture[] webcamTexture;
 
+    string _result = null;
+
     private int currentNum;
 
     void Start()
@@ -37,6 +39,10 @@ public class WebCamController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (webcamTexture[currentNum] != null)
+        {
+            _result = QRCodeHelper.Read(webcamTexture[currentNum]);
+            Debug.LogFormat("result : " + _result);
+        }
     }
 }
