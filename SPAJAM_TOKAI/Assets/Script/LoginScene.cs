@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NCMB;
+using UnityEngine.SceneManagement;
 
 public class LoginScene : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class LoginScene : MonoBehaviour
             else
             {
                 UnityEngine.Debug.Log("ログインに成功！");
+                SceneManager.LoadScene("UserProfileScene");
             }
         });
 
