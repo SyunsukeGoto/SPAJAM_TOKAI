@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: 22de9437ed9e72847af7c934b024a473
+  - enabled: 1
+    path: Assets/Scenes/FindUmbrella.unity
+    guid: f9e501d0e6d20154eb87c7ef4aeaa713
+  - enabled: 1
+    path: Assets/Scenes/MyPage.unity
+    guid: a45c976ea30603e4f909b5d264b21487
+  - enabled: 1
+    path: Assets/Scenes/Talk.unity
+    guid: da5e1e88c2f6ac1458368a8d37028489
   m_configObjects: {}
