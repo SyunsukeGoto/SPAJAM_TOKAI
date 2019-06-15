@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NCMB;
+using UnityEngine.SceneManagement;
 
 public class WebCamController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class WebCamController : MonoBehaviour
     private Material material;
 
     [SerializeField]
-    private GameObject canvas;
+    private GameObject[] canvas =  new GameObject[2];
 
     private WebCamTexture[] webcamTexture;
 
@@ -66,15 +67,48 @@ public class WebCamController : MonoBehaviour
                     if (_result != "error")
                     {
                         id = _result;
-                        canvas.SetActive(false);
+                        canvas[0].SetActive(false);
+                        canvas[1].SetActive(true);
                         mode = Mode.Brrow;
                     }
                 }
                 break;
             case Mode.Brrow:
-
                 break;
         }
-       
+    }
+
+    public void Yes()
+    {
+        NCMBUser.CurrentUser["BorrowUmbrellaID"] = id;
+        NCMBUser.CurrentUser.SaveAsync();
+
+        NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject>("Umbrella");
+
+        query.WhereEqualTo("objectId", id);
+        query.FindAsync((List<NCMBObject> objList, NCMBException e) => {
+            if (e != null)
+            {
+                //検索失敗時の処理
+            }
+            else
+            {
+                //
+                foreach (NCMBObject obj in objList)
+                {
+                    obj["IsBorrow"] = true;
+                    obj["BorrowID"] = NCMBUser.CurrentUser.ObjectId;
+                    obj.SaveAsync();
+                    Debug.Log("成功");
+                }
+            }
+        });
+
+        SceneManager.LoadScene("UserProfileScene");
+    }
+
+    public void No()
+    {
+        mode = Mode.QR;
     }
 }

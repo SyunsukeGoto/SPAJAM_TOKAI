@@ -26,6 +26,6 @@ public class UserProfile : MonoBehaviour
 
     public void LoadRegisterUmbrella()
     {
-        SceneManager.LoadScene("RegisterUmbrellaScene");
+        SceneManager.LoadScene("BorrowScene");
     }
 }
