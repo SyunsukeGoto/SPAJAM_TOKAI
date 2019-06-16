@@ -19,7 +19,7 @@ public class WebCamController : MonoBehaviour
     private Material material;
 
     [SerializeField]
-    private GameObject[] canvas =  new GameObject[2];
+    private GameObject[] canvas =  new GameObject[3];
 
     private WebCamTexture[] webcamTexture;
 
@@ -31,6 +31,7 @@ public class WebCamController : MonoBehaviour
     {
         QR,      // QRコードを読み取る
         Brrow,   // 借りる
+        OK,
     }
 
     private Mode mode;
@@ -69,6 +70,7 @@ public class WebCamController : MonoBehaviour
                         id = _result;
                         canvas[0].SetActive(false);
                         canvas[1].SetActive(true);
+                        canvas[2].SetActive(false);
                         mode = Mode.Brrow;
                     }
                 }
@@ -100,15 +102,21 @@ public class WebCamController : MonoBehaviour
                     obj["BorrowID"] = NCMBUser.CurrentUser.ObjectId;
                     obj.SaveAsync();
                     Debug.Log("成功");
+                    mode = Mode.OK;
+                    canvas[1].SetActive(false);
+                    canvas[2].SetActive(true);
                 }
             }
         });
-
-        SceneManager.LoadScene("UserProfileScene");
     }
 
     public void No()
     {
         mode = Mode.QR;
+    }
+
+    public void OK()
+    {
+        SceneManager.LoadScene("UmbrellaMapScene");
     }
 }
