@@ -35,6 +35,6 @@ public class ButtonFunc : MonoBehaviour
 
     public void PushReturn()
     {
-        _returnPos._goBackFlug = true;
+        _returnPos._goBackFlug = false;
     }
 }
