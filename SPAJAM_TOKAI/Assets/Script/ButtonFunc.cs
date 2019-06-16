@@ -19,4 +19,9 @@ public class ButtonFunc : MonoBehaviour
     {
         SceneManager.LoadScene("RegisterUmbrellaScene");
     }
+
+    public void PushBorrow()
+    {
+        SceneManager.LoadScene("BorrowScene");
+    }
 }
