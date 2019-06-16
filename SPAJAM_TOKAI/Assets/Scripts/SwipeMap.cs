@@ -76,6 +76,16 @@ namespace Goto
                 // スワイプの長さを速度に変換する
                 this.x_speed = x_swipeLength / 500.0f;
                 this.y_speed = y_swipeLength / 500.0f;
+            }           
+            
+            if(_camera.transform.position.z >= 30f)
+            {
+                _camera.transform.position = new Vector3(_camera.transform.position.x, _camera.transform.position.y, 30f);
+            }
+            else
+            if (_camera.transform.position.z <= -130f)
+            {
+                _camera.transform.position = new Vector3(_camera.transform.position.x, _camera.transform.position.y, -130f);
             }
 
             if (_goBackFlug)
@@ -83,8 +93,20 @@ namespace Goto
                 _camera.transform.Translate(-this.x_speed, -this.y_speed, 0);
             }
 
-
-
+            if(_camera.transform.position.x <= -65f)
+            {
+                _camera.transform.position = new Vector3(-65f, _camera.transform.position.y, _camera.transform.position.z);
+            }
+            else
+            if (_camera.transform.position.x >= 165f)
+            {
+                _camera.transform.position = new Vector3(165f, _camera.transform.position.y, _camera.transform.position.z);
+            }
+            else
+            {
+                _camera.transform.Translate(-this.x_speed, -this.y_speed, 0);
+            }
+        
             Debug.Log(_camera.transform);
             // 減速させる
             this.x_speed *= 0.98f;
