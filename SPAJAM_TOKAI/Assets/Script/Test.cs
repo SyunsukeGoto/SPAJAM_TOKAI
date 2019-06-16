@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using NCMB;
 
 public class Test : MonoBehaviour
 {
@@ -9,15 +10,24 @@ public class Test : MonoBehaviour
     private InputField inputField;
     [SerializeField]
     private Text text;
+    [SerializeField]
+    private Text nameText;
 
     void Start()
     {
         inputField = inputField.GetComponent<InputField>();
         text = text.GetComponent<Text>();
+        nameText.text = NCMBUser.CurrentUser.UserName;
     }
 
     public void InputText()
     {
         text.text = inputField.text;
+    }
+
+    public void Send()
+    {
+        NCMBUser.CurrentUser["ProfileText"] = inputField.text;
+        NCMBUser.CurrentUser.SaveAsync();
     }
 }
