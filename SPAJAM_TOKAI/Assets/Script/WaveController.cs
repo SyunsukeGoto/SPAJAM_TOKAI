@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class WaveController : MonoBehaviour
 
     [SerializeField]
     private bool isFadeIn = false;
+
+    [SerializeField]
+    private float time;
 
     const int MOVE_SPEED_X = 10;
     const int MOVE_SPEED_Y = 20;
@@ -55,6 +59,15 @@ public class WaveController : MonoBehaviour
         if (isFadeIn)
         {
             StartFadeIn();
+        }
+
+        //シーン遷移
+        time -= Time.deltaTime;
+        Debug.Log(time);
+
+        if(time <= 0.0f)
+        {
+            SceneManager.LoadScene("LoginScene");
         }
     }
 

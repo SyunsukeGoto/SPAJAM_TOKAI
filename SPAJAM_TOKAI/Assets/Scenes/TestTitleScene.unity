@@ -386,6 +386,7 @@ MonoBehaviour:
   _waveFrontImage: {fileID: 1917233413}
   _waveBackImage: {fileID: 934860629}
   isFadeIn: 1
+  time: 1.8
 --- !u!1 &934860627
 GameObject:
   m_ObjectHideFlags: 0

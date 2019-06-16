@@ -47,7 +47,7 @@ public class LoginScene : MonoBehaviour
             else
             {
                 UnityEngine.Debug.Log("ログインに成功！");
-                SceneManager.LoadScene("UserProfileScene");
+                SceneManager.LoadScene("UmbrellaMapScene");
             }
         });
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NCMB;
+using UnityEngine.SceneManagement;
 
 public class SigninDirector : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class SigninDirector : MonoBehaviour
             else
             {
                 UnityEngine.Debug.Log("新規登録に成功");
+                SceneManager.LoadScene("UmbrellaMapScene");
             }
         });
 

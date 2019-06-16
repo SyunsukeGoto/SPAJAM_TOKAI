@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/TestTitleScene.unity
+    guid: f11737953a30d7a4c94faec17dce4e1c
+  - enabled: 1
     path: Assets/Scenes/UmbrellaMapScene.unity
     guid: 42f6aa7ce7a604f16ade319663f46ceb
   - enabled: 1
@@ -17,9 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UserProfileScene.unity
     guid: 20861af837958af46890929cd5c718f9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/RegisterUmbrellaScene.unity
     guid: 262cb8c6430afcb4eac9fbd3e5896ef9
+  - enabled: 1
+    path: Assets/Scenes/TestMyProfileScene.unity
+    guid: 50bc60c6509086e4b8f723ba4bd3d12a
   - enabled: 1
     path: Assets/Scenes/BorrowScene.unity
     guid: 6441cf8798eb06943a929c5a53e09d15
