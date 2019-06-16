@@ -30,7 +30,7 @@ namespace Goto
         public bool _goBackFlug
         {
             get;
-            private set;
+            set;
         }
 
         // Use this for initialization
