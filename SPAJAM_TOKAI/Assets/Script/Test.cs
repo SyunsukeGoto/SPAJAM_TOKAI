@@ -18,6 +18,8 @@ public class Test : MonoBehaviour
         inputField = inputField.GetComponent<InputField>();
         text = text.GetComponent<Text>();
         nameText.text = NCMBUser.CurrentUser.UserName;
+
+        inputField.text = NCMBUser.CurrentUser["ProfileText"].ToString();
     }
 
     public void InputText()
