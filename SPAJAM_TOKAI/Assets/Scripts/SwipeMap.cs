@@ -25,16 +25,34 @@ namespace Goto
         [SerializeField]
         Camera _camera;
         Vector3 _cameraPos;
+
+        int a = 0;
+        public bool _goBackFlug
+        {
+            get;
+            private set;
+        }
+
         // Use this for initialization
         void Start()
         {
+            _goBackFlug = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            
+
             // メソッドを呼び出す
             MoveSwipe();
+
+
+
+            if(!_goBackFlug)
+            {
+                _camera.transform.position = new Vector3(0f, 115f, 0f);
+            }
         }
 
         // スワイプして上下左右に動かす
@@ -45,6 +63,7 @@ namespace Goto
             {
                 // マウスをクリックした座標
                 this.startPos = Input.mousePosition;
+                _goBackFlug = true;
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -57,8 +76,7 @@ namespace Goto
                 // スワイプの長さを速度に変換する
                 this.x_speed = x_swipeLength / 500.0f;
                 this.y_speed = y_swipeLength / 500.0f;
-            }
-            
+            }           
             
             if(_camera.transform.position.z >= 30f)
             {
@@ -68,6 +86,11 @@ namespace Goto
             if (_camera.transform.position.z <= -130f)
             {
                 _camera.transform.position = new Vector3(_camera.transform.position.x, _camera.transform.position.y, -130f);
+            }
+
+            if (_goBackFlug)
+            {
+                _camera.transform.Translate(-this.x_speed, -this.y_speed, 0);
             }
 
             if(_camera.transform.position.x <= -65f)
