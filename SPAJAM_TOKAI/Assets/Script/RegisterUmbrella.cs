@@ -44,6 +44,9 @@ public class RegisterUmbrella : MonoBehaviour
         // オブジェクトに値を設定
         testClass["IsBorrow"] = false;
         testClass["LenderID"] = NCMBUser.CurrentUser.ObjectId;
+        Goto.GetNowLotAndLong getNow = new Goto.GetNowLotAndLong();
+        testClass["Latitude"] = getNow.Latitude;
+        testClass["Longitude"] = getNow.Longitude;
 
         // データストアへの登録
         testClass.SaveAsync();
