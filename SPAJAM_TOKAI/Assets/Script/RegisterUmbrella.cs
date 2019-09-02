@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NCMB;
+using ZXing;
+using ZXing.QrCode;
+using UnityEngine.SceneManagement;
 
 public class RegisterUmbrella : MonoBehaviour
 {
@@ -13,7 +16,13 @@ public class RegisterUmbrella : MonoBehaviour
     private Text addressText;
 
     [SerializeField]
-    private Text telText;
+    private GameObject image;
+
+    [SerializeField]
+    private Button button;
+
+    [SerializeField]
+    private Text buttonText;
 
     // Start is called before the first frame update
     void Start()
@@ -53,5 +62,42 @@ public class RegisterUmbrella : MonoBehaviour
         user["LendUmbrellaID"] = a.ObjectId;
         Debug.Log(a.ObjectId);
         user.SaveAsync();
+
+        Texture2D qr = CreateQR(a.ObjectId, 256, 256);
+        image.GetComponent<Image>().sprite = Sprite.Create(qr, new Rect(0, 0, qr.width, qr.height), Vector2.zero);
+        image.SetActive(true);
+
+        buttonText.text = "閉じる";
+        button.onClick.AddListener(Back);
+    }
+
+    Texture2D CreateQR(string inputString, int width, int height)
+    {
+        var texture = new Texture2D(width, height);
+        var qrCodeColors = Write(inputString, width, height);
+        texture.SetPixels32(qrCodeColors);
+        texture.Apply();
+
+        return texture;
+    }
+
+    Color32[] Write(string content, int width, int height)
+    {
+        var writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Options = new QrCodeEncodingOptions
+            {
+                Height = height,
+                Width = width
+            }
+        };
+
+        return writer.Write(content);
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("UmbrellaMapScene");
     }
 }
