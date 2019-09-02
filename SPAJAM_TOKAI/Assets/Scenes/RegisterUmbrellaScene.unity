@@ -448,7 +448,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1363464424}
   addressText: {fileID: 163067187}
-  image: {fileID: 289445437}
+  image: {fileID: 289445436}
+  button: {fileID: 524227415}
+  buttonText: {fileID: 527949573}
 --- !u!1 &505320154
 GameObject:
   m_ObjectHideFlags: 0
