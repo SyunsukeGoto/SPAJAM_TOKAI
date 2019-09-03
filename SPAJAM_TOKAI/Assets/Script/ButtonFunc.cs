@@ -7,11 +7,11 @@ using Goto;
 
 public class ButtonFunc : MonoBehaviour
 {
-    SwipeMap _returnPos;
+    UpDateLotAndLong _returnPos;
 
     void Start()
     {
-        _returnPos = GameObject.Find("LotAndLongManager").GetComponent<SwipeMap>();
+        _returnPos = GameObject.Find("LotAndLongManager").GetComponent<UpDateLotAndLong>();
     }
     public void PushHome()
     {
@@ -35,6 +35,6 @@ public class ButtonFunc : MonoBehaviour
 
     public void PushReturn()
     {
-        _returnPos._goBackFlug = false;
+        _returnPos.UpDateDate();
     }
 }
